@@ -1,0 +1,36 @@
+{
+  "editor.linkedEditing": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.highlightActiveIndentation": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[liquid]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "stylelint.reportInvalidScopeDisables": true,
+  "stylelint.reportNeedlessDisables": true,
+  "stylelint.snippet": ["css", "postcss", "scss"],
+  "stylelint.validate": ["css", "postcss", "scss"],
+
+  // Folder and files
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "ngrok.yml, tailwind.config.js, .babelrc, .gitattributes, LICENSE, .nvmrc, .editorconfig, .gitignore, .npmrc, config.yml, yarn.lock, package-lock.json, pnpm-lock.yaml, .eslintrc*, .prettierignore, .prettierrc*, .stylelintrc*, .theme-check.yml, postcss.config.js, babel.config.json, tsconfig.json, .env.example, .lintstagedrc, .browserslistrc"
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.git": true,
+    "**/*.log": true,
+    "*.tsbuildinfo": true
+  },
+
+  "tailwindCSS.rootFontSize": 10
+}

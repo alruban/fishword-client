@@ -1,0 +1,11 @@
+<svg
+  role="presentation"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 48 48"
+  stroke="currentColor"
+>
+  <path d="M24 8V34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M14 16L24 6L34 16" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M40 42H8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

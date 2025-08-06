@@ -1,0 +1,597 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'creep';
+  src: url('./fonts/creep.woff2') format('woff2'),
+      url('./fonts/creep.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PerfectDOSVGA437';
+  src: url('./fonts/PerfectDOSVGA437.woff2') format('woff2'),
+      url('./fonts/PerfectDOSVGA437.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WRONGUN';
+  src: url('./fonts/WRONGUN.woff2') format('woff2'),
+      url('./fonts/WRONGUN.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WRONGUN';
+  src: url('./fonts/WRONGUN_BOLD.woff2') format('woff2'),
+      url('./fonts/WRONGUN_BOLD.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+  Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+  - The "symbol *" part is to solve Firefox SVG sprite bug
+*/
+*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+  all: unset;
+  display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a,
+button {
+  display: inline-flex;
+  cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol,
+ul,
+menu {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+picture,
+video,
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  flex-shrink: 0;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+}
+
+/* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+input,
+textarea {
+  -webkit-user-select: auto;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+  white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+  -webkit-appearance: revert;
+  appearance: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+  color: inherit;
+}
+
+/* fix the feature of 'hidden' attribute.
+  display:revert; revert to element instead of attribute
+*/
+:where([hidden]) {
+  display: none !important;
+}
+
+/* revert for bug in Chromium browsers
+  - fix for the content editable attribute will work properly.
+  - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element
+*/
+:where([contenteditable]:not([contenteditable='false'])) {
+  -moz-user-modify: read-write;
+  -webkit-user-modify: read-write;
+  overflow-wrap: break-word;
+  -webkit-line-break: after-white-space;
+  -webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable='true']) {
+  -webkit-user-drag: element;
+}
+
+html {
+  height: 100%;
+  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+
+  @apply bg-key-black-darker;
+}
+
+body {
+  text-rendering: optimizeSpeed;
+
+  @apply text-md lg:text-xl overscroll-none h-full;
+}
+
+#root {
+  @apply h-full;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  word-break: break-word;
+}
+
+:where(summary[class])::-webkit-details-marker {
+  display: none;
+}
+
+mark {
+  all: revert;
+}
+
+a,
+button,
+[type="button"],
+[type="submit"] {
+  cursor: pointer;
+}
+
+b,
+
+small {
+  font-size: 80%;
+}
+
+s {
+  text-decoration: revert;
+}
+
+/* For Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+hr {
+  @apply h-px my-2 bg-white opacity-75;
+}
+
+/* For Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=password] {
+  @apply font-wrongun;
+}
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  max-width: 18rem;
+
+  @apply border overflow-scroll w-fit whitespace-nowrap border-background-tertiary text-background-tertiary inline-block px-2 py-1 cursor-pointer border-solid text-2xs scrollbar-hide;
+}
+
+/* Computer terminal Text Cursor */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: fit-content;
+  margin-left: 5px;
+  animation: blink 1s step-start infinite;
+
+  &.blink {
+    animation: blink 1s step-start infinite;
+  }
+}
+
+.terminal {
+  position: relative;
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.9), /* Inner shadow for depth */
+    0 0 20px rgba(0, 0, 0, 0.5); /* Outer glow for ambient light */
+  text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5); /* Text glow */
+  overflow: hidden;
+  user-select: none;
+
+  /* Adds colours variance to screen effect */
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(farthest-side at 50% 50%, rgba(255, 255, 255, 0.1), transparent 70%);
+    border-radius: 50%;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* Add scan lines effect */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0) 1px,
+      rgba(0, 0, 0, 0.1) 1px,
+      rgba(0, 0, 0, 0.1) 2px
+    );
+    pointer-events: none; /* Allows clicks to pass through */
+    z-index: 10;
+    opacity: 0.5;
+  }
+}
+
+/* Computer terminal Screen Effect */
+.terminal--computer {
+  @apply font-dos block overflow-hidden w-full h-full lg:rounded-[1.5rem] bg-key-black-darker;
+
+  .game-loaded & {
+    @apply p-0;
+  }
+}
+
+@keyframes shrink-border {
+  0%, 100% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 10% 10%; /* Adjust this value to control the smallest size before growing again */
+  }
+}
+
+.terminal-panel-background {
+  /* Using linear gradients to create borders */
+  background-image: repeating-linear-gradient(
+    0deg,
+    theme('colors.background-tertiary-half'), theme('colors.background-tertiary-half') 1px,
+    transparent 1px, transparent 10px,
+    theme('colors.background-tertiary-half') 10px, theme('colors.background-tertiary-half') 11px,
+    transparent 11px, transparent 20px
+  );
+
+  /* Initial background size */
+  background-size: 100% 100%;
+
+  /* Shrink animation */
+  animation: shrink-border 0.5s infinite alternate;
+
+  &--slow {
+    animation: shrink-border 1s infinite alternate;
+  }
+
+  &--slower {
+    animation: shrink-border 1.5s infinite alternate;
+  }
+}
+
+.cone-gradient-background {
+  &::after {
+    content: '';
+    background: radial-gradient(circle, rgba(3, 183, 237, 1) 0%, rgba(0, 114, 221, 1) 25%, rgba(0, 0, 0, 0) 80%);
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    z-index: 0;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+}
+
+/* Add's a cursor that's reminiscent of a text cursor on a computer terminal */
+.text-cursor-emulation {
+  user-select: none;
+  display: inline-flex;
+  width: 22px;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 3px 1px;
+  text-align: center;
+  background: transparent;
+  color: transparent;
+  text-shadow: 0 0 0 theme('colors.body');
+
+  &:focus {
+    outline: none;
+  }
+
+  &--highlight {
+    @apply bg-body;
+    text-shadow: 0 0 0 theme('colors.black');
+  }
+}
+
+boot-screen, user-screen, login-screen, registration-screen {
+  @apply bg-black
+}
+
+
+/* Computer terminal Screen Effect */
+.text-terminal {
+  display: block;
+  position: relative;
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.9), /* Inner shadow for depth */
+    0 0 20px rgba(0, 0, 0, 0.5); /* Outer glow for ambient light */
+  text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5); /* Text glow */
+  overflow: hidden;
+
+  @apply text-body relative select-none font-creep bg-key-black-lighter;
+
+
+  /* Adds colours variance to screen effect */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(farthest-side at 50% 50%, rgba(255, 255, 255, 0.1), transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  /* Add scan lines effect */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0) 1px,
+      rgba(0, 0, 0, 0.1) 1px,
+      rgba(0, 0, 0, 0.1) 2px
+    );
+    pointer-events: none; /* Allows clicks to pass through */
+    z-index: 10;
+  }
+}
+
+/* Windows 95 Button Styles */
+.button {
+  /* Basic styling */
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+  text-shadow: none;
+
+  @apply border-4 border-inset font-dos uppercase inline-flex justify-center;
+
+  /* Active state */
+  &.active {
+    border-style: inset; /* Invert the 3D effect to simulate pressing */
+  }
+
+  &--primary {
+    @apply text-black bg-button-primary border-button-secondary;
+
+
+    /* Hover state */
+    &:hover {
+      @apply bg-button-primary  border-button-secondary;
+    }
+
+    &.active {
+      @apply bg-button-secondary  border-button-primary;
+
+      &:hover {
+        @apply bg-button-secondary  border-button-primary;
+      }
+    }
+  }
+
+  &--secondary {
+    @apply text-black bg-base-primary border-base-secondary;
+
+
+    /* Hover state */
+    &:hover {
+      @apply bg-base-primary  border-base-secondary;
+    }
+
+    &.active {
+      @apply bg-base-secondary  border-base-primary;
+
+      &:hover {
+        @apply bg-base-secondary  border-base-primary;
+      }
+    }
+  }
+}
+
+/* Cold War Tech Button Styles */
+.key {
+  --tw-text-opacity: 0.75;
+
+  /* Basic styling */
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+  text-shadow: none;
+
+  @apply rounded-md font-creep uppercase inline-flex h-8 w-8 border-2 items-center justify-center leading-none p-2;
+
+  svg,
+  span {
+    @apply opacity-75;
+  }
+
+  &--wide {
+    @apply w-[9.8rem];
+  }
+
+  &--yellow {
+    box-shadow: 0 0 1rem theme('colors.key.yellow.inactive');
+
+    @apply text-black bg-key-yellow-inactive border-key-yellow-inactive;
+
+
+    /* Hover state */
+    &:hover {
+      box-shadow: 0 0 1rem theme('colors.key.yellow.active');
+      @apply text-black bg-key-yellow-active border-key-yellow-active;
+    }
+
+    &.active,
+    &--active {
+      box-shadow: 0 0 1rem theme('colors.key.yellow.active');
+
+      @apply text-black bg-key-yellow-active border-key-yellow-active;
+
+      &:hover {
+        @apply text-black bg-key-yellow-active border-key-yellow-active;
+      }
+    }
+  }
+
+  &--green {
+    box-shadow: 0 0 1rem theme('colors.key.green.inactive');
+
+    @apply text-black bg-key-green-inactive border-key-green-inactive;
+
+
+    /* Hover state */
+    &:hover {
+      box-shadow: 0 0 1rem theme('colors.key.green.active');
+      @apply text-black bg-key-green-active border-key-green-active;
+    }
+
+    &.active,
+    &--active {
+      box-shadow: 0 0 1rem theme('colors.key.green.active');
+
+      @apply text-black bg-key-green-active border-key-green-active;
+
+      &:hover {
+        @apply text-black bg-key-green-active border-key-green-active;
+      }
+    }
+  }
+
+  &--blue {
+    box-shadow: 0 0 1rem theme('colors.key.blue.inactive');
+
+    @apply text-black bg-key-blue-inactive border-key-blue-inactive;
+
+
+    /* Hover state */
+    &:hover {
+      box-shadow: 0 0 1rem theme('colors.key.blue.active');
+      @apply text-black bg-key-blue-active border-key-blue-active;
+    }
+
+    &.active,
+    &--active {
+      box-shadow: 0 0 1rem theme('colors.key.blue.active');
+
+      @apply text-black bg-key-blue-active border-key-blue-active;
+
+      &:hover {
+        @apply text-black bg-key-blue-active border-key-blue-active;
+      }
+    }
+  }
+
+  &--red {
+    box-shadow: 0 0 1rem theme('colors.key.red.inactive');
+
+    @apply text-black bg-key-red-inactive border-key-red-inactive;
+
+
+    /* Hover state */
+    &:hover {
+      box-shadow: 0 0 1rem theme('colors.key.red.active');
+      @apply text-black bg-key-red-active border-key-red-active;
+    }
+
+    &.active,
+    &--active {
+      box-shadow: 0 0 1rem theme('colors.key.red.active');
+
+      @apply text-black bg-key-red-active border-key-red-active;
+
+      &:hover {
+        @apply text-black bg-key-red-active border-key-red-active;
+      }
+    }
+  }
+}
+
+@layer base {
+  .border-inset {
+    border-style: inset;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
